@@ -18,11 +18,12 @@ public class DBContext1 {
 
     public static final String PORT = "1433";
 
-    public static final String DBNAME = "DATA_DUAN";
+    public static final String DBNAME = "DUAN1";
 
     public static final String USERNAME = "sa";
 
-    public static final String PASSWORD = "123456789";
+    public static final String PASSWORD = "songlong";
+    public static final String POPUP_HEADER = "Thông báo";
 
     /**
      *
