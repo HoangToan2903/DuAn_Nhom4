@@ -25,8 +25,8 @@ public class HoaDonDatHangIplm implements HoaDonDatHangService {
     public String xoa(String TenSanPham) {
         boolean Xoa = donDatHangRepository.delete(TenSanPham);
         if(Xoa == true){
-            return "Xóa thành công";
-        }return "Xóa không thành công";
+            return "Hủy thành công";
+        }return "Hủy không thành công";
     }
 
     @Override

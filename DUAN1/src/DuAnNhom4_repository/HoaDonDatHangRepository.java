@@ -22,17 +22,17 @@ import java.util.ArrayList;
 public class HoaDonDatHangRepository {
 
     public static List<vHoaDonDatHang> getAll() {
-        String query = "select HOADONDATHANG.ID, SANPHAM.TENSP, HOADONDATHANG.SOLUONG, SANPHAM.GIABAN, SANPHAM.MAUSAC, SANPHAM.SIZE, KHACHHANG.HOTEN,SANPHAM.HINHANH, HOADONDATHANG.TRANGTHAI\n"
-                + "from HOADONDATHANG \n"
-                + "join SANPHAM ON HOADONDATHANG.IDSP = SANPHAM.Id \n"
+        String query = "select HOADONDATHANG.ID, SANPHAM.TENSP, HOADONDATHANG.SOLUONG, SANPHAM.GIABAN, SANPHAM.MAUSAC, SANPHAM.SIZE, KHACHHANG.HOTEN,KhachHang.SDT,KhachHang.DAICHI,SANPHAM.HINHANH, HOADONDATHANG.TRANGTHAI "
+                + "from HOADONDATHANG "
+                + "join SANPHAM ON HOADONDATHANG.IDSP = SANPHAM.Id "
                 + "join KHACHHANG ON HOADONDATHANG.IDKH = KHACHHANG.ID";
         try (Connection con = DBContext1.getConnection(); PreparedStatement ps = con.prepareStatement(query)) {
             List<vHoaDonDatHang> listHoaDon = new ArrayList<>();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                vSanPham1 sanPham = new vSanPham1(rs.getString(2), rs.getString(6), rs.getString(5), rs.getBigDecimal(4), rs.getString(8));
-                vKhachHang khachHang = new vKhachHang(rs.getString(7));
-                vHoaDonDatHang hoaDonDatHang = new vHoaDonDatHang(khachHang, sanPham, rs.getString(1), rs.getInt(3), rs.getInt(9));
+                vSanPham1 sanPham = new vSanPham1(rs.getString(2), rs.getString(6), rs.getString(5), rs.getBigDecimal(4), rs.getString(10));
+                vKhachHang khachHang = new vKhachHang(rs.getString(7), rs.getString(8), rs.getString(9));
+                vHoaDonDatHang hoaDonDatHang = new vHoaDonDatHang(khachHang, sanPham, rs.getString(1), rs.getInt(3), rs.getInt(11));
                 listHoaDon.add(hoaDonDatHang);
             }
             return listHoaDon;
@@ -56,18 +56,18 @@ public class HoaDonDatHangRepository {
     }
 
     public vHoaDonDatHang timKiem(int TrangThai) {
-        String query = "select HOADONDATHANG.ID, SANPHAM.TENSP, HOADONDATHANG.SOLUONG, SANPHAM.GIABAN, SANPHAM.MAUSAC, SANPHAM.SIZE, KHACHHANG.HOTEN,SANPHAM.HINHANH, HOADONDATHANG.TRANGTHAI\n"
-                + "                from HOADONDATHANG "
-                + "                join SANPHAM ON HOADONDATHANG.IDSP = SANPHAM.Id "
-                + "                join KHACHHANG ON HOADONDATHANG.IDKH = KHACHHANG.ID"
-                + "				where HOADONDATHANG.TRANGTHAI = ?";
+        String query = "select HOADONDATHANG.ID, SANPHAM.TENSP, HOADONDATHANG.SOLUONG, SANPHAM.GIABAN, SANPHAM.MAUSAC, SANPHAM.SIZE, KHACHHANG.HOTEN,KhachHang.SDT,KhachHang.DAICHI,SANPHAM.HINHANH, HOADONDATHANG.TRANGTHAI"
+                + "from HOADONDATHANG "
+                + "join SANPHAM ON HOADONDATHANG.IDSP = SANPHAM.Id "
+                + "join KHACHHANG ON HOADONDATHANG.IDKH = KHACHHANG.ID "
+                + "where HOADONDATHANG.TRANGTHAI = ?";
         try (Connection con = DBContext1.getConnection(); PreparedStatement ps = con.prepareStatement(query)) {
             ps.setObject(1, TrangThai);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                vSanPham1 sanPham = new vSanPham1(rs.getString(2), rs.getString(6), rs.getString(5), rs.getBigDecimal(4), rs.getString(8));
-                vKhachHang khachHang = new vKhachHang(rs.getString(7));
-                return new vHoaDonDatHang(khachHang, sanPham, rs.getString(1), rs.getInt(3), rs.getInt(9));
+                vSanPham1 sanPham = new vSanPham1(rs.getString(2), rs.getString(6), rs.getString(5), rs.getBigDecimal(4), rs.getString(10));
+                vKhachHang khachHang = new vKhachHang(rs.getString(7), rs.getString(8), rs.getString(9));
+                return new vHoaDonDatHang(khachHang, sanPham, rs.getString(1), rs.getInt(3), rs.getInt(11));
             }
         } catch (SQLException e) {
             e.printStackTrace(System.out);

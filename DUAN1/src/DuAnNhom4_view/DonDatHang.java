@@ -24,29 +24,35 @@ public class DonDatHang extends javax.swing.JPanel {
     private DefaultTableModel dtm = new DefaultTableModel();
     private HoaDonDatHangService hoaDonDatHangService = new HoaDonDatHangIplm();
 //    private DBContext dc = new DBContext();
+
     public DonDatHang() {
         initComponents();
         tbHoaDonDatHang.setModel(dtm);
-        String[] header = {"ID","Tên sản phẩm", "Giá sản phẩm", "Kích thước", "Màu sắc", "Số lượng", "Tên người nhận", "Hình Ảnh", "Trạng Thái"};
+        String[] header = {"ID", "Tên sản phẩm", "Giá sản phẩm", "Kích thước", "Màu sắc", "Số lượng", "Tên người nhận","Số điện thoại","Địa Chỉ", "Hình Ảnh", "Trạng Thái"};
         dtm.setColumnIdentifiers(header);
         loadData(hoaDonDatHangService.getAll());
     }
-     public void loadData(List<vHoaDonDatHang> list) {
+
+    public void loadData(List<vHoaDonDatHang> list) {
         dtm.setRowCount(0);
         for (vHoaDonDatHang hoaDonDatHang : list) {
-            dtm.addRow(new Object[]{hoaDonDatHang.getID(),hoaDonDatHang.getIDSanPham().getTenSanPham(),hoaDonDatHang.getIDSanPham().getGiaBan(),hoaDonDatHang.getIDSanPham().getSize(),hoaDonDatHang.getIDSanPham().getMauSac(),hoaDonDatHang.getSoLuong(),hoaDonDatHang.getIDKhachHang().getTen(),hoaDonDatHang.getIDSanPham().getHinhAnh(),(hoaDonDatHang.getTrangThai() == 0 ? "Đã thanh toán" : "Chưa thanh toán")});
+            dtm.addRow(new Object[]{hoaDonDatHang.getID(), hoaDonDatHang.getIDSanPham().getTenSanPham(), hoaDonDatHang.getIDSanPham().getGiaBan(),
+                hoaDonDatHang.getIDSanPham().getSize(), hoaDonDatHang.getIDSanPham().getMauSac(),
+                hoaDonDatHang.getSoLuong(), hoaDonDatHang.getIDKhachHang().getTen(),hoaDonDatHang.getIDKhachHang().getSDT(),hoaDonDatHang.getIDKhachHang().getDiaChi(), hoaDonDatHang.getIDSanPham().getHinhAnh(),
+                (hoaDonDatHang.getTrangThai() == 0 ? "Đã thanh toán" : "Chưa thanh toán")});
         }
     }
-    public void fillTable(){
+
+    public void fillTable() {
         int row = tbHoaDonDatHang.getSelectedRow();
         vHoaDonDatHang hd = hoaDonDatHangService.getAll().get(row);
         lbID.setText(hd.getID());
         txtGiaSP.setText(hd.getIDSanPham().getGiaBan() + "");
         txtKichThuoc.setText(hd.getIDSanPham().getSize());
         txtMauSac.setText(hd.getIDSanPham().getMauSac());
-        txtSoLuong.setText(hd.getSoLuong()+"");
+        txtSoLuong.setText(hd.getSoLuong() + "");
         txtTenSP.setText(hd.getIDSanPham().getTenSanPham());
-        txtTrangThai.setText(hd.getTrangThai()+"");
+        txtTrangThai.setText(hd.getTrangThai() + "");
     }
 
     /**
@@ -213,12 +219,22 @@ public class DonDatHang extends javax.swing.JPanel {
         cbDaThanhToan.setText("Đã thanh toán");
 
         cbChuaThanhToan.setText("Chưa thanh toán");
+        cbChuaThanhToan.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbChuaThanhToanItemStateChanged(evt);
+            }
+        });
 
         btnTimKiem.setBackground(new java.awt.Color(153, 153, 153));
         btnTimKiem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTimKiem.setForeground(new java.awt.Color(255, 255, 255));
         btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search.png"))); // NOI18N
         btnTimKiem.setText("Tìm kiếm");
+        btnTimKiem.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnTimKiemItemStateChanged(evt);
+            }
+        });
         btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimKiemActionPerformed(evt);
@@ -284,16 +300,35 @@ public class DonDatHang extends javax.swing.JPanel {
     private void btnHuyDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyDonActionPerformed
         // TODO add your handling code here:
         int chon = JOptionPane.showConfirmDialog(this, "bạn có muốn hủy đơn không");
-        if(chon == JOptionPane.YES_OPTION){
+        if (chon == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(this, hoaDonDatHangService.xoa(lbID.getText()));
         }
         loadData(hoaDonDatHangService.getAll());
     }//GEN-LAST:event_btnHuyDonActionPerformed
+    public void clear() {
+        txtGiaSP.setText("");
+        txtKichThuoc.setText("");
+        txtMauSac.setText("");
+        txtSoLuong.setText(TOOL_TIP_TEXT_KEY);
+    }
 
     private void tbHoaDonDatHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbHoaDonDatHangMouseClicked
         // TODO add your handling code here:
         fillTable();
     }//GEN-LAST:event_tbHoaDonDatHangMouseClicked
+
+    private void btnTimKiemItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnTimKiemItemStateChanged
+//        // TODO add your handling code here:
+//        if(cbDaThanhToan.getItemCount() <= 0){
+//            
+//        } else {
+//        }
+    }//GEN-LAST:event_btnTimKiemItemStateChanged
+
+    private void cbChuaThanhToanItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbChuaThanhToanItemStateChanged
+//        // TODO add your handling code here:
+//        if(cbChuaThanhToan.ge)
+    }//GEN-LAST:event_cbChuaThanhToanItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

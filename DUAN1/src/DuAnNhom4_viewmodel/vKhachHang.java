@@ -10,12 +10,16 @@ package DuAnNhom4_viewmodel;
  */
 public class vKhachHang {
     String Ten;
+    String SDT;
+    String DiaChi;
 
     public vKhachHang() {
     }
 
-    public vKhachHang(String Ten) {
+    public vKhachHang(String Ten, String SDT, String DiaChi) {
         this.Ten = Ten;
+        this.SDT = SDT;
+        this.DiaChi = DiaChi;
     }
 
     public String getTen() {
@@ -26,9 +30,26 @@ public class vKhachHang {
         this.Ten = Ten;
     }
 
+    public String getSDT() {
+        return SDT;
+    }
+
+    public void setSDT(String SDT) {
+        this.SDT = SDT;
+    }
+
+    public String getDiaChi() {
+        return DiaChi;
+    }
+
+    public void setDiaChi(String DiaChi) {
+        this.DiaChi = DiaChi;
+    }
+
     @Override
     public String toString() {
-        return "vKhachHang{" + "Ten=" + Ten + '}';
+        return "vKhachHang{" + "Ten=" + Ten + ", SDT=" + SDT + ", DiaChi=" + DiaChi + '}';
     }
+    
     
 }

@@ -87,7 +87,7 @@ public class vSanPham_repository {
     public static vSanPham getVSPbymaSP(String MA) {
         vSanPham vsp = new vSanPham();
         ResultSet rs;
-        String sql = "select MASP, TENSP, SOLUONG, HINHANH, SIZE, MAUSAC, CHATLIEU, GIANHAP, GIABAN, LOAISANPHAM.ID, LOAISANPHAM.MA, LOAISANPHAM.TEN\n"
+        String sql = "select MASP, SANPHAM.TENSP, SOLUONG, HINHANH, SIZE, MAUSAC, CHATLIEU, GIANHAP, GIABAN, LOAISANPHAM.ID, LOAISANPHAM.MA, LOAISANPHAM.TEN\n"
                 + "from SANPHAM join LOAISANPHAM on SANPHAM.IDLOAISP = LOAISANPHAM.ID\n"
                 + "where MASP  = ?  ";
 

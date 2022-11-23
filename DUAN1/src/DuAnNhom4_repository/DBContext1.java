@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public class DBContext1 {
 
-   public static final String HOSTNAME = "localhost";
+    public static final String HOSTNAME = "localhost";
 
     public static final String PORT = "1433";
 
@@ -23,6 +23,7 @@ public class DBContext1 {
     public static final String USERNAME = "sa";
 
     public static final String PASSWORD = "songlong";
+
     public static final String POPUP_HEADER = "Thông báo";
 
     /**
@@ -54,7 +55,7 @@ public class DBContext1 {
         return null;
 
     }
-    
+
     public static void main(String[] args) {
         System.out.println(getConnection());
     }
